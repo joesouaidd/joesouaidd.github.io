@@ -13,3 +13,7 @@ export const fetchWeather = async (cityName) => {
 
   return data;
 };
+
+
+
+
