@@ -49,51 +49,54 @@ const App = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "20px" }}>
-      <input
-        type="text"
-        placeholder="Enter city name..."
-        value={cityName}
-        onChange={(e) => setCityName(e.target.value)}
-        onKeyDown={handleKeyDown} // Listen for Enter key
-      />
-      <button onClick={handleSearch} style={{ marginLeft: "10px" }}>
-        Search
-      </button>
-      <button onClick={toggleUnit} style={{ marginLeft: "10px" }}>
-        Toggle to {unit === "C" ? "Fahrenheit" : "Celsius"}
-      </button>
-      {loading && <div style={{ margin: "20px", fontSize: "1.2rem" }}>Loading...</div>}
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      {weatherData && (
-        <div>
-          <h2>
-            {weatherData.location.name}, {weatherData.location.region},{" "}
-            {weatherData.location.country}
-          </h2>
-          <p>Temperature: {convertTemperature(weatherData.current.temp_c)}°{unit}</p>
-          <p>Condition: {weatherData.current.condition.text}</p>
+    <div className="app">
+      <header>
+        <h1>Weather App</h1>
+      </header>
+      <main>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Enter city name..."
+            value={cityName}
+            onChange={(e) => setCityName(e.target.value)}
+            onKeyDown={handleKeyDown} // Listen for Enter key
+            className="search-input"
+          />
+          <button onClick={handleSearch} className="search-button">
+            Search
+          </button>
+          <button onClick={toggleUnit} className="toggle-button">
+            Toggle to {unit === "C" ? "Fahrenheit" : "Celsius"}
+          </button>
         </div>
-      )}
-      <div style={{ marginTop: "20px" }}>
-        <h3>Recent Searches</h3>
-        <ul style={{ listStyleType: "none", padding: 0 }}>
-          {recentSearches.map((city, index) => (
-            <li
-              key={index}
-              style={{
-                cursor: "pointer",
-                color: "#007BFF",
-                textDecoration: "underline",
-                margin: "5px 0",
-              }}
-              onClick={() => handleRecentClick(city)}
-            >
-              {city}
-            </li>
-          ))}
-        </ul>
-      </div>
+        {loading && <div className="loading-indicator">Loading...</div>}
+        {error && <div className="error-message">{error}</div>}
+        {weatherData && (
+          <div className="weather-info">
+            <h2>
+              {weatherData.location.name}, {weatherData.location.region},{" "}
+              {weatherData.location.country}
+            </h2>
+            <p>Temperature: {convertTemperature(weatherData.current.temp_c)}°{unit}</p>
+            <p>Condition: {weatherData.current.condition.text}</p>
+          </div>
+        )}
+        <div className="recent-searches">
+          <h3>Recent Searches</h3>
+          <ul>
+            {recentSearches.map((city, index) => (
+              <li
+                key={index}
+                className="recent-item"
+                onClick={() => handleRecentClick(city)}
+              >
+                {city}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </main>
     </div>
   );
 };
